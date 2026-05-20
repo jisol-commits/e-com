@@ -3,14 +3,26 @@
 {% block content %}
 <section class="hero">
   <div class="hero-media" role="img" aria-label="Premium PC components display in a black and gold style"></div>
+  <div class="hero-circuit" aria-hidden="true"></div>
   <div class="hero-content">
-    <span class="eyebrow">Premium PC Components</span>
-    <h1>Neo China</h1>
+    <span class="eyebrow hero-eyebrow">Premium PC Components</span>
+    <h1 class="hero-title" data-text="Neo China">Neo China</h1>
+    <div class="hero-title-line" aria-hidden="true"></div>
     <p>Performance graphics cards, processors, prebuilt gaming PCs, SSDs, cabinets, power supplies, and cooling hardware for serious custom setups.</p>
+    <div class="hero-specs" aria-label="Store highlights">
+      <span>RTX Builds</span>
+      <span>Designer Cabinets</span>
+      <span>Premium Gear</span>
+    </div>
     <div class="hero-actions">
       <a class="button primary" href="{% url 'shop:collection' %}">Shop Collection</a>
       <a class="button ghost" href="#featured">Explore Pieces</a>
     </div>
+  </div>
+  <div class="hero-status" aria-hidden="true">
+    <span>Live Inventory</span>
+    <strong>52+</strong>
+    <em>Parts & Builds</em>
   </div>
 </section>
 
