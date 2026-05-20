@@ -62,6 +62,28 @@ document.querySelectorAll(".product-image img").forEach((image) => {
   }, { once: true });
 });
 
+const revealItems = document.querySelectorAll(
+  ".product-card, .section-heading, .editorial-band, .site-footer, .page-hero, .product-detail"
+);
+
+if ("IntersectionObserver" in window) {
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.16 });
+
+  revealItems.forEach((item, index) => {
+    item.style.transitionDelay = `${Math.min(index % 9, 8) * 55}ms`;
+    revealObserver.observe(item);
+  });
+} else {
+  revealItems.forEach((item) => item.classList.add("is-visible"));
+}
+
 document.querySelectorAll(".product-card").forEach((card) => {
   card.addEventListener("mousemove", (event) => {
     const bounds = card.getBoundingClientRect();

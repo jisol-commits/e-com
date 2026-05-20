@@ -11,6 +11,26 @@
   --shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
 }
 
+@keyframes heroZoom {
+  from { transform: scale(1.08); filter: saturate(0.82); }
+  to { transform: scale(1.02); filter: saturate(1); }
+}
+
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes goldSweep {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(120%); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: inset 0 1px 0 rgba(255, 245, 202, 0.12), 0 0 0 rgba(214, 174, 84, 0); }
+  50% { box-shadow: inset 0 1px 0 rgba(255, 245, 202, 0.16), 0 0 42px rgba(214, 174, 84, 0.14); }
+}
+
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
@@ -35,6 +55,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   background: rgba(5, 5, 5, 0.84);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(18px);
+  animation: revealUp 560ms ease both;
 }
 .brand, .site-nav, .hero-actions, .product-meta, .purchase-row {
   display: flex;
@@ -55,6 +76,12 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   color: var(--gold-bright);
   font-family: "Orbitron", ui-sans-serif, system-ui, sans-serif;
   font-size: 1.35rem;
+  transition: background 220ms ease, color 220ms ease, transform 220ms ease;
+}
+.brand:hover .brand-mark {
+  background: var(--gold);
+  color: var(--black);
+  transform: rotate(-6deg) scale(1.04);
 }
 .site-nav { gap: 26px; color: var(--muted); font-size: 0.94rem; }
 .site-nav a:hover, .text-link:hover { color: var(--gold-bright); }
@@ -97,6 +124,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
     linear-gradient(90deg, rgba(9, 7, 4, 0.92), rgba(20, 15, 8, 0.58), rgba(5, 5, 5, 0.28)),
     url("https://images.unsplash.com/photo-1587202372634-32705e3bf49c?auto=format&fit=crop&w=1800&q=80") center/cover;
   transform: scale(1.02);
+  animation: heroZoom 1400ms ease both;
 }
 .hero-content {
   position: relative;
@@ -107,6 +135,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   background: linear-gradient(135deg, rgba(214, 174, 84, 0.14), rgba(5, 5, 5, 0.08));
   box-shadow: inset 0 1px 0 rgba(255, 245, 202, 0.12);
   backdrop-filter: blur(2px);
+  animation: revealUp 760ms 140ms ease both, pulseGlow 4200ms 1100ms ease-in-out infinite;
 }
 .eyebrow {
   display: inline-block;
@@ -135,6 +164,8 @@ h1, h2, h3 {
 }
 .hero-actions { gap: 14px; flex-wrap: wrap; margin-top: 30px; }
 .button {
+  position: relative;
+  overflow: hidden;
   font-family: "Sora", ui-sans-serif, system-ui, sans-serif;
   display: inline-flex;
   align-items: center;
@@ -144,9 +175,22 @@ h1, h2, h3 {
   border: 1px solid var(--gold);
   font-weight: 800;
   cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease;
 }
 .button.primary { background: var(--gold); color: var(--black); }
 .button.ghost { color: var(--gold-bright); background: rgba(0, 0, 0, 0.24); }
+.button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.32), transparent);
+  transform: translateX(-120%);
+}
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28);
+}
+.button:hover::after { animation: goldSweep 760ms ease; }
 
 .trust-strip {
   display: grid;
@@ -161,6 +205,20 @@ h1, h2, h3 {
   color: var(--muted);
   text-align: center;
   font-size: 0.9rem;
+  animation: revealUp 520ms ease both;
+}
+.trust-strip span:nth-child(2) { animation-delay: 90ms; }
+.trust-strip span:nth-child(3) { animation-delay: 180ms; }
+.trust-strip span:nth-child(4) { animation-delay: 270ms; }
+
+.section-heading, .editorial-band, .site-footer, .page-hero, .product-detail {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 560ms ease, transform 560ms ease;
+}
+.section-heading.is-visible, .editorial-band.is-visible, .site-footer.is-visible, .page-hero.is-visible, .product-detail.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 .section, .site-footer, .editorial-band, .page-hero, .product-detail {
   padding: clamp(52px, 8vw, 108px) clamp(18px, 5vw, 72px);
@@ -194,11 +252,28 @@ h1, h2, h3 {
   border: 1px solid var(--line);
   box-shadow: var(--shadow);
   transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+  opacity: 0;
+  transform: translateY(30px);
+}
+.product-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 520ms ease, transform 520ms ease, border-color 220ms ease, box-shadow 220ms ease;
 }
 .product-card:hover {
   border-color: rgba(241, 212, 134, 0.55);
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.58), 0 0 34px rgba(214, 174, 84, 0.12);
 }
+.product-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(120deg, transparent, rgba(241, 212, 134, 0.08), transparent);
+  transform: translateX(-125%);
+  pointer-events: none;
+}
+.product-card:hover::before { animation: goldSweep 900ms ease; }
 .product-image {
   position: relative;
   display: block;
@@ -228,7 +303,9 @@ h1, h2, h3 {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.32);
+  transition: transform 200ms ease;
 }
+.product-card:hover .product-badge { transform: translateY(-2px); }
 .product-image img { transition: transform 360ms ease; }
 .product-card:hover img { transform: scale(1.045); }
 .product-body { padding: 20px; }
@@ -269,6 +346,11 @@ h1, h2, h3 {
   color: var(--gold-bright);
   font-size: 0.82rem;
   font-weight: 800;
+  transition: border-color 180ms ease, background 180ms ease;
+}
+.product-card:hover .spec-chip {
+  border-color: rgba(241, 212, 134, 0.58);
+  background: linear-gradient(135deg, rgba(214, 174, 84, 0.22), rgba(255, 255, 255, 0.055));
 }
 .product-meta { justify-content: space-between; gap: 14px; }
 .product-meta strong, .purchase-row strong { color: var(--gold-bright); font-size: 1.22rem; }
@@ -382,6 +464,19 @@ h1, h2, h3 {
   transition: transform 240ms ease;
 }
 .toast.show { transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
+  .product-card, .section-heading, .editorial-band, .site-footer, .page-hero, .product-detail {
+    opacity: 1;
+    transform: none;
+  }
+}
 
 @media (max-width: 920px) {
   .nav-toggle { display: block; }
