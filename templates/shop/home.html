@@ -1,0 +1,44 @@
+{% extends "shop/base.html" %}
+{% block title %}Aurum Luxe | Black & Gold Luxury Store{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-media" role="img" aria-label="Luxury black and gold jewelry display"></div>
+  <div class="hero-content">
+    <span class="eyebrow">New Private Collection</span>
+    <h1>Aurum Luxe</h1>
+    <p>Black-tie essentials, crafted in rich textures, luminous metalwork, and quietly confident silhouettes.</p>
+    <div class="hero-actions">
+      <a class="button primary" href="{% url 'shop:collection' %}">Shop Collection</a>
+      <a class="button ghost" href="#featured">Explore Pieces</a>
+    </div>
+  </div>
+</section>
+
+<section class="trust-strip" aria-label="Store benefits">
+  <span>Complimentary insured shipping</span>
+  <span>14-day private approval</span>
+  <span>Concierge sourcing</span>
+  <span>Authenticated materials</span>
+</section>
+
+<section class="section" id="featured">
+  <div class="section-heading">
+    <span class="eyebrow">Featured Edit</span>
+    <h2>Objects with presence, polish, and restraint.</h2>
+    <a class="text-link" href="{% url 'shop:collection' %}">View all</a>
+  </div>
+  <div class="product-grid">
+    {% for product in featured_products %}
+      {% include "shop/partials/product_card.html" with product=product %}
+    {% endfor %}
+  </div>
+</section>
+
+<section class="editorial-band">
+  <div>
+    <span class="eyebrow">Material Language</span>
+    <h2>Deep black surfaces, warm gold accents, and a tactile finish in every detail.</h2>
+  </div>
+  <p>From ceramic watches to leather goods and parfum, the catalog architecture supports real products today and richer inventory, payments, and PostgreSQL deployment later.</p>
+</section>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "shop/base.html" %}
+{% block title %}{{ product.name }} | Aurum Luxe{% endblock %}
+{% block content %}
+<section class="product-detail">
+  <div class="detail-image">
+    <img src="{{ product.display_image }}" alt="{{ product.name }}">
+  </div>
+  <div class="detail-copy">
+    <span class="eyebrow">{{ product.category.name }}</span>
+    <h1>{{ product.name }}</h1>
+    <p class="lead">{{ product.tagline }}</p>
+    <p>{{ product.description }}</p>
+    <dl class="spec-list">
+      <div><dt>Material</dt><dd>{{ product.material|default:"Premium finish" }}</dd></div>
+      <div><dt>Color</dt><dd>{{ product.color }}</dd></div>
+      <div><dt>Availability</dt><dd>{% if product.stock %}In stock{% else %}Concierge order{% endif %}</dd></div>
+    </dl>
+    <div class="purchase-row">
+      <strong>${{ product.price }}</strong>
+      <button class="button primary" type="button" data-add-cart>Add to Cart</button>
+    </div>
+  </div>
+</section>
+
+{% if related_products %}
+<section class="section">
+  <div class="section-heading">
+    <span class="eyebrow">Complete the Edit</span>
+    <h2>Related pieces</h2>
+  </div>
+  <div class="product-grid">
+    {% for product in related_products %}
+      {% include "shop/partials/product_card.html" with product=product %}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}

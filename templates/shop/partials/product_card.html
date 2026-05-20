@@ -1,0 +1,14 @@
+<article class="product-card">
+  <a class="product-image" href="{% if product.get_absolute_url %}{{ product.get_absolute_url }}{% else %}#{% endif %}">
+    <img src="{{ product.display_image }}" alt="{{ product.name }}">
+  </a>
+  <div class="product-body">
+    <span>{{ product.material|default:"Limited edition" }}</span>
+    <h3>{{ product.name }}</h3>
+    <p>{{ product.tagline }}</p>
+    <div class="product-meta">
+      <strong>${{ product.price }}</strong>
+      <button type="button" data-add-cart>Add</button>
+    </div>
+  </div>
+</article>
