@@ -1,6 +1,6 @@
 <article class="product-card">
   <a class="product-image" href="{% if product.get_absolute_url %}{{ product.get_absolute_url }}{% else %}#{% endif %}">
-    <span class="product-badge">{% if product.is_featured %}Featured{% else %}In Stock{% endif %}</span>
+    <span class="product-badge">{% if product.is_featured %}Hot Deal{% else %}Ready Ship{% endif %}</span>
     <img src="{{ product.display_image }}" alt="{{ product.name }}">
   </a>
   <div class="product-body">

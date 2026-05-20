@@ -17,7 +17,7 @@ body {
   margin: 0;
   background: var(--black);
   color: var(--text);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.5;
 }
 a { color: inherit; text-decoration: none; }
@@ -40,7 +40,12 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   display: flex;
   align-items: center;
 }
-.brand { gap: 12px; font-weight: 800; letter-spacing: 0; }
+.brand {
+  gap: 12px;
+  font-family: "Orbitron", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: 0;
+}
 .brand-mark {
   display: grid;
   place-items: center;
@@ -48,7 +53,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   height: 42px;
   border: 1px solid var(--gold);
   color: var(--gold-bright);
-  font-family: Georgia, serif;
+  font-family: "Orbitron", ui-sans-serif, system-ui, sans-serif;
   font-size: 1.35rem;
 }
 .site-nav { gap: 26px; color: var(--muted); font-size: 0.94rem; }
@@ -106,11 +111,16 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   text-transform: uppercase;
 }
 h1, h2, h3, p { margin-top: 0; }
-h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; letter-spacing: 0; }
+h1, h2, h3 {
+  font-family: "Sora", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: 0;
+}
 .hero h1 {
   margin: 14px 0 16px;
-  font-size: clamp(4rem, 11vw, 9.5rem);
-  line-height: 0.9;
+  font-family: "Orbitron", ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(3.5rem, 10vw, 8.5rem);
+  line-height: 0.94;
 }
 .hero p, .lead {
   max-width: 640px;
@@ -119,6 +129,7 @@ h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; l
 }
 .hero-actions { gap: 14px; flex-wrap: wrap; margin-top: 30px; }
 .button {
+  font-family: "Sora", ui-sans-serif, system-ui, sans-serif;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -237,9 +248,9 @@ h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; l
 }
 .product-body h3 {
   margin: 10px 0 8px;
-  min-height: 62px;
-  font-size: 1.58rem;
-  line-height: 1.08;
+  min-height: 58px;
+  font-size: 1.42rem;
+  line-height: 1.12;
 }
 .product-body p { min-height: 52px; color: var(--muted); }
 .spec-chip {
@@ -256,6 +267,7 @@ h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; l
 .product-meta { justify-content: space-between; gap: 14px; }
 .product-meta strong, .purchase-row strong { color: var(--gold-bright); font-size: 1.22rem; }
 .product-meta button {
+  font-family: "Sora", ui-sans-serif, system-ui, sans-serif;
   min-width: 72px;
   min-height: 38px;
   padding: 0 14px;
