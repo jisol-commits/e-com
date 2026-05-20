@@ -33,7 +33,7 @@ def _fallback_products():
 
 
 def home(request):
-    featured = list(Product.objects.select_related("category").filter(is_featured=True)[:6])
+    featured = list(Product.objects.select_related("category").filter(is_featured=True)[:9])
     if not featured:
         featured = _fallback_products()
     return render(

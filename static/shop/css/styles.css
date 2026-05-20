@@ -204,8 +204,8 @@ h1, h2, h3 {
   content: "";
   position: absolute;
   inset: auto 0 0;
-  height: 44%;
-  background: linear-gradient(0deg, rgba(5, 5, 5, 0.82), transparent);
+  height: 34%;
+  background: linear-gradient(0deg, rgba(5, 5, 5, 0.58), transparent);
   pointer-events: none;
 }
 .product-badge {
@@ -214,14 +214,14 @@ h1, h2, h3 {
   left: 14px;
   z-index: 2;
   padding: 8px 11px;
-  background: rgba(5, 5, 5, 0.78);
-  border: 1px solid rgba(241, 212, 134, 0.48);
-  color: var(--gold-bright);
+  background: linear-gradient(135deg, rgba(241, 212, 134, 0.95), rgba(166, 119, 34, 0.9));
+  border: 1px solid rgba(255, 245, 202, 0.54);
+  color: #090806;
   font-size: 0.7rem;
   font-weight: 900;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.32);
 }
 .product-image img { transition: transform 360ms ease; }
 .product-card:hover img { transform: scale(1.045); }
@@ -258,8 +258,8 @@ h1, h2, h3 {
   max-width: 100%;
   margin: 4px 0 18px;
   padding: 8px 11px;
-  border: 1px solid rgba(214, 174, 84, 0.26);
-  background: rgba(214, 174, 84, 0.08);
+  border: 1px solid rgba(214, 174, 84, 0.34);
+  background: linear-gradient(135deg, rgba(214, 174, 84, 0.14), rgba(255, 255, 255, 0.035));
   color: var(--gold-bright);
   font-size: 0.82rem;
   font-weight: 800;
@@ -278,6 +278,13 @@ h1, h2, h3 {
 .product-meta button:hover {
   background: var(--gold);
   color: var(--black);
+}
+.product-image img.is-fallback {
+  object-fit: contain;
+  padding: 44px;
+  background:
+    radial-gradient(circle at 50% 34%, rgba(241, 212, 134, 0.24), transparent 36%),
+    linear-gradient(145deg, #19130b, #050505 68%);
 }
 
 .editorial-band, .site-footer {
