@@ -3,7 +3,7 @@
 {% block content %}
 <section class="page-hero compact">
   <span class="eyebrow">The Collection</span>
-  <h1>Luxury essentials in black and gold.</h1>
+  <h1>Premium PC components in a black and gold shopping experience.</h1>
 </section>
 
 <section class="section collection-layout">
@@ -13,7 +13,7 @@
     {% for category in categories %}
       <a class="{% if active_category == category.slug %}active{% endif %}" href="?category={{ category.slug }}">{{ category.name }}</a>
     {% empty %}
-      <span>Curated edit</span>
+      <span>Curated PC components</span>
     {% endfor %}
   </aside>
   <div class="product-grid">
@@ -21,7 +21,7 @@
       {% include "shop/partials/product_card.html" with product=product %}
     {% empty %}
       <div class="empty-state">
-        <h2>No pieces found.</h2>
+        <h2>No products found.</h2>
         <p>Add products in Django admin or choose another category.</p>
       </div>
     {% endfor %}

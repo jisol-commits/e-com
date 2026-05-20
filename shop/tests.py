@@ -6,14 +6,14 @@ from .models import Category, Product
 
 class StorefrontSmokeTests(TestCase):
     def setUp(self):
-        self.category = Category.objects.create(name="Timepieces", slug="timepieces")
+        self.category = Category.objects.create(name="Graphics Cards", slug="graphics-cards")
         self.product = Product.objects.create(
             category=self.category,
-            name="Aurum Nocturne Watch",
-            slug="aurum-nocturne-watch",
-            tagline="Swiss movement and gold bezel.",
-            description="A refined black and gold watch.",
-            price="1240.00",
+            name="Aurum RTX 4080 Ultra GPU",
+            slug="aurum-rtx-4080-ultra-gpu",
+            tagline="16GB GDDR6X graphics card built for 4K gaming.",
+            description="A premium black and gold graphics card.",
+            price="1199.00",
             stock=4,
             is_featured=True,
         )

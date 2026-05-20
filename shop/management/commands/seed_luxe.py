@@ -4,108 +4,121 @@ from shop.models import Category, Product
 
 
 class Command(BaseCommand):
-    help = "Seed the development database with luxury demo products."
+    help = "Seed the development database with premium PC component demo products."
 
     def handle(self, *args, **options):
+        Product.objects.all().delete()
+        Category.objects.all().delete()
+
         categories = {
-            "timepieces": Category.objects.get_or_create(
-                name="Timepieces",
-                slug="timepieces",
-                defaults={"description": "Precision watches with black ceramic and gold accents."},
+            "graphics_cards": Category.objects.get_or_create(
+                name="Graphics Cards",
+                slug="graphics-cards",
+                defaults={"description": "High-performance GPUs for gaming, rendering, and AI workloads."},
             )[0],
-            "leather": Category.objects.get_or_create(
-                name="Leather Goods",
-                slug="leather-goods",
-                defaults={"description": "Structured carry pieces in rich black leather."},
+            "memory": Category.objects.get_or_create(
+                name="RAM",
+                slug="ram",
+                defaults={"description": "Fast DDR5 memory kits for gaming and creator builds."},
             )[0],
-            "fragrance": Category.objects.get_or_create(
-                name="Fragrance",
-                slug="fragrance",
-                defaults={"description": "Warm, evening-ready scents for private occasions."},
+            "processors": Category.objects.get_or_create(
+                name="Processors",
+                slug="processors",
+                defaults={"description": "Desktop CPUs for speed, efficiency, and multitasking."},
             )[0],
-            "jewelry": Category.objects.get_or_create(
-                name="Jewelry",
-                slug="jewelry",
-                defaults={"description": "Gold-finished statement pieces with restrained lines."},
+            "motherboards": Category.objects.get_or_create(
+                name="Motherboards",
+                slug="motherboards",
+                defaults={"description": "Feature-rich boards with modern chipsets and expansion."},
+            )[0],
+            "storage": Category.objects.get_or_create(
+                name="Storage",
+                slug="storage",
+                defaults={"description": "NVMe SSDs and drives for fast boot and load times."},
+            )[0],
+            "power_cooling": Category.objects.get_or_create(
+                name="Power & Cooling",
+                slug="power-cooling",
+                defaults={"description": "Reliable PSUs, liquid coolers, and airflow essentials."},
             )[0],
         }
 
         products = [
             {
-                "category": categories["timepieces"],
-                "name": "Aurum Nocturne Watch",
-                "slug": "aurum-nocturne-watch",
-                "tagline": "Swiss movement, black ceramic body, brushed gold bezel.",
-                "description": "A slim evening timepiece with sapphire crystal, a textured matte dial, and luminous gold indices.",
-                "price": "1240.00",
-                "material": "Ceramic and gold vermeil",
+                "category": categories["graphics_cards"],
+                "name": "Aurum RTX 4080 Ultra GPU",
+                "slug": "aurum-rtx-4080-ultra-gpu",
+                "tagline": "16GB GDDR6X graphics card built for 4K gaming and creator workloads.",
+                "description": "A premium triple-fan graphics card with ray tracing support, quiet cooling, reinforced backplate, and black-and-gold styling for showcase builds.",
+                "price": "1199.00",
+                "material": "16GB GDDR6X / PCIe 4.0",
                 "stock": 8,
                 "is_featured": True,
-                "image_url": "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=1200&q=80",
+                "image_url": "https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=1200&q=80",
             },
             {
-                "category": categories["leather"],
-                "name": "Obsidian Leather Tote",
-                "slug": "obsidian-leather-tote",
-                "tagline": "Full-grain leather with polished brass detailing.",
-                "description": "A structured tote made for travel days, private appointments, and the rhythm of a working wardrobe.",
-                "price": "680.00",
-                "material": "Italian leather",
-                "stock": 12,
+                "category": categories["memory"],
+                "name": "Noir DDR5 RGB Memory Kit",
+                "slug": "noir-ddr5-rgb-memory-kit",
+                "tagline": "32GB DDR5 dual-channel RAM tuned for high-FPS gaming.",
+                "description": "A low-latency 2x16GB memory kit with heat spreaders, stable XMP profiles, and warm gold lighting accents.",
+                "price": "169.00",
+                "material": "32GB / DDR5-6000 / CL30",
+                "stock": 22,
                 "is_featured": True,
-                "image_url": "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=1200&q=80",
+                "image_url": "https://images.unsplash.com/photo-1562976540-1502c2145186?auto=format&fit=crop&w=1200&q=80",
             },
             {
-                "category": categories["fragrance"],
-                "name": "Golden Hour Eau de Parfum",
-                "slug": "golden-hour-eau-de-parfum",
-                "tagline": "Amber, saffron, smoked vanilla, and midnight jasmine.",
-                "description": "A warm extrait-style fragrance with a long drydown and a polished evening signature.",
-                "price": "220.00",
-                "material": "Extrait concentration",
-                "stock": 30,
+                "category": categories["processors"],
+                "name": "Aurum Ryzen 9 Performance CPU",
+                "slug": "aurum-ryzen-9-performance-cpu",
+                "tagline": "16-core desktop processor for gaming, streaming, and rendering.",
+                "description": "A high-end CPU selected for fast boost clocks, strong multicore output, and smooth performance in demanding PC builds.",
+                "price": "549.00",
+                "material": "16 Cores / 32 Threads",
+                "stock": 14,
                 "is_featured": True,
-                "image_url": "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=1200&q=80",
+                "image_url": "https://images.unsplash.com/photo-1555617981-dac3880eac6e?auto=format&fit=crop&w=1200&q=80",
             },
             {
-                "category": categories["jewelry"],
-                "name": "Signet Noir Ring",
-                "slug": "signet-noir-ring",
-                "tagline": "Black onyx face set in a satin gold band.",
-                "description": "A modern signet with architectural shoulders, made to be worn alone or stacked with quiet confidence.",
-                "price": "390.00",
-                "material": "Onyx and gold vermeil",
+                "category": categories["motherboards"],
+                "name": "Obsidian X670E Motherboard",
+                "slug": "obsidian-x670e-motherboard",
+                "tagline": "ATX motherboard with PCIe 5.0, Wi-Fi 7, and premium VRM cooling.",
+                "description": "A feature-rich board for enthusiast builds with reinforced slots, clean cable routing, and a polished black PCB.",
+                "price": "429.00",
+                "material": "ATX / PCIe 5.0 / Wi-Fi 7",
                 "stock": 18,
                 "is_featured": True,
-                "image_url": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1200&q=80",
+                "image_url": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
             },
             {
-                "category": categories["leather"],
-                "name": "Midnight Card Case",
-                "slug": "midnight-card-case",
-                "tagline": "Compact black calfskin with a gold foil edge.",
-                "description": "A slim everyday carry piece finished with hand-painted edges and a soft suede-lined center pocket.",
-                "price": "145.00",
-                "material": "Calfskin leather",
+                "category": categories["storage"],
+                "name": "Aurum NVMe Gen4 SSD",
+                "slug": "aurum-nvme-gen4-ssd",
+                "tagline": "2TB NVMe drive for ultra-fast boot, game, and project loading.",
+                "description": "A high-speed M.2 SSD with a slim heat spreader, strong sustained writes, and dependable performance for modern desktops.",
+                "price": "189.00",
+                "material": "2TB / PCIe Gen4 / M.2",
                 "stock": 24,
                 "is_featured": False,
-                "image_url": "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=80",
+                "image_url": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=1200&q=80",
             },
             {
-                "category": categories["jewelry"],
-                "name": "Imperial Cuff",
-                "slug": "imperial-cuff",
-                "tagline": "A clean gold cuff with a black enamel channel.",
-                "description": "Minimal from a distance, richly detailed up close, with a mirror-polished interior and satin exterior.",
-                "price": "520.00",
-                "material": "Gold vermeil and enamel",
+                "category": categories["power_cooling"],
+                "name": "VoltCore 850W Gold PSU",
+                "slug": "voltcore-850w-gold-psu",
+                "tagline": "Modular 850W power supply with 80 Plus Gold efficiency.",
+                "description": "A quiet, fully modular PSU designed for powerful GPUs, tidy cable management, and stable long-term performance.",
+                "price": "159.00",
+                "material": "850W / Fully Modular",
                 "stock": 10,
                 "is_featured": False,
-                "image_url": "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=1200&q=80",
+                "image_url": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=1200&q=80",
             },
         ]
 
         for product in products:
             Product.objects.update_or_create(slug=product["slug"], defaults=product)
 
-        self.stdout.write(self.style.SUCCESS("Seeded Aurum Luxe demo catalog."))
+        self.stdout.write(self.style.SUCCESS("Seeded Aurum Luxe PC components catalog."))

@@ -40,7 +40,7 @@ class Product(models.Model):
 
     @property
     def display_image(self):
-        return self.image_url or "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1200&q=80"
+        return self.image_url or "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"
 
 
 class OrderLead(models.Model):

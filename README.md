@@ -1,6 +1,6 @@
 # Aurum Luxe
 
-A modern responsive luxury e-commerce website built with Django, HTML5, CSS3, JavaScript, and SQLite for development.
+A modern responsive premium PC components e-commerce website built with Django, HTML5, CSS3, JavaScript, and SQLite for development.
 
 ## Run Locally
 
