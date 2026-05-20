@@ -1,11 +1,16 @@
 <article class="product-card">
   <a class="product-image" href="{% if product.get_absolute_url %}{{ product.get_absolute_url }}{% else %}#{% endif %}">
+    <span class="product-badge">{% if product.is_featured %}Featured{% else %}In Stock{% endif %}</span>
     <img src="{{ product.display_image }}" alt="{{ product.name }}">
   </a>
   <div class="product-body">
-    <span>{{ product.material|default:"Limited edition" }}</span>
+    <div class="product-kicker">
+      <span>{{ product.category.name|default:"PC Component" }}</span>
+      <em>{{ product.stock|default:"Ready" }} available</em>
+    </div>
     <h3>{{ product.name }}</h3>
     <p>{{ product.tagline }}</p>
+    <div class="spec-chip">{{ product.material|default:"Performance grade" }}</div>
     <div class="product-meta">
       <strong>${{ product.price }}</strong>
       <button type="button" data-add-cart>Add</button>

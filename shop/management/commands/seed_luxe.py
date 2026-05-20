@@ -46,10 +46,10 @@ class Command(BaseCommand):
         products = [
             {
                 "category": categories["graphics_cards"],
-                "name": "Aurum RTX 4080 Ultra GPU",
-                "slug": "aurum-rtx-4080-ultra-gpu",
-                "tagline": "16GB GDDR6X graphics card built for 4K gaming and creator workloads.",
-                "description": "A premium triple-fan graphics card with ray tracing support, quiet cooling, reinforced backplate, and black-and-gold styling for showcase builds.",
+                "name": "Neo RTX 4080 Dragon OC",
+                "slug": "neo-rtx-4080-dragon-oc",
+                "tagline": "16GB GDDR6X graphics card with ray tracing power and elite cooling.",
+                "description": "A premium triple-fan GPU for 4K gaming, rendering, and streaming, finished with a reinforced backplate and black-and-gold showcase styling.",
                 "price": "1199.00",
                 "material": "16GB GDDR6X / PCIe 4.0",
                 "stock": 8,
@@ -58,10 +58,10 @@ class Command(BaseCommand):
             },
             {
                 "category": categories["memory"],
-                "name": "Noir DDR5 RGB Memory Kit",
-                "slug": "noir-ddr5-rgb-memory-kit",
-                "tagline": "32GB DDR5 dual-channel RAM tuned for high-FPS gaming.",
-                "description": "A low-latency 2x16GB memory kit with heat spreaders, stable XMP profiles, and warm gold lighting accents.",
+                "name": "Neo Fury DDR5 RGB RAM",
+                "slug": "neo-fury-ddr5-rgb-ram",
+                "tagline": "32GB low-latency DDR5 kit tuned for high-FPS gaming builds.",
+                "description": "A 2x16GB performance memory kit with premium heat spreaders, stable XMP profiles, and warm gold lighting accents.",
                 "price": "169.00",
                 "material": "32GB / DDR5-6000 / CL30",
                 "stock": 22,
@@ -70,8 +70,8 @@ class Command(BaseCommand):
             },
             {
                 "category": categories["processors"],
-                "name": "Aurum Ryzen 9 Performance CPU",
-                "slug": "aurum-ryzen-9-performance-cpu",
+                "name": "Neo Ryzen 9 Apex CPU",
+                "slug": "neo-ryzen-9-apex-cpu",
                 "tagline": "16-core desktop processor for gaming, streaming, and rendering.",
                 "description": "A high-end CPU selected for fast boost clocks, strong multicore output, and smooth performance in demanding PC builds.",
                 "price": "549.00",
@@ -82,8 +82,8 @@ class Command(BaseCommand):
             },
             {
                 "category": categories["motherboards"],
-                "name": "Obsidian X670E Motherboard",
-                "slug": "obsidian-x670e-motherboard",
+                "name": "Neo X670E Carbon Board",
+                "slug": "neo-x670e-carbon-board",
                 "tagline": "ATX motherboard with PCIe 5.0, Wi-Fi 7, and premium VRM cooling.",
                 "description": "A feature-rich board for enthusiast builds with reinforced slots, clean cable routing, and a polished black PCB.",
                 "price": "429.00",
@@ -94,8 +94,8 @@ class Command(BaseCommand):
             },
             {
                 "category": categories["storage"],
-                "name": "Aurum NVMe Gen4 SSD",
-                "slug": "aurum-nvme-gen4-ssd",
+                "name": "NeoSpeed Gen4 NVMe SSD",
+                "slug": "neospeed-gen4-nvme-ssd",
                 "tagline": "2TB NVMe drive for ultra-fast boot, game, and project loading.",
                 "description": "A high-speed M.2 SSD with a slim heat spreader, strong sustained writes, and dependable performance for modern desktops.",
                 "price": "189.00",
@@ -106,8 +106,8 @@ class Command(BaseCommand):
             },
             {
                 "category": categories["power_cooling"],
-                "name": "VoltCore 850W Gold PSU",
-                "slug": "voltcore-850w-gold-psu",
+                "name": "NeoVolt 850W Gold PSU",
+                "slug": "neovolt-850w-gold-psu",
                 "tagline": "Modular 850W power supply with 80 Plus Gold efficiency.",
                 "description": "A quiet, fully modular PSU designed for powerful GPUs, tidy cable management, and stable long-term performance.",
                 "price": "159.00",
@@ -121,4 +121,4 @@ class Command(BaseCommand):
         for product in products:
             Product.objects.update_or_create(slug=product["slug"], defaults=product)
 
-        self.stdout.write(self.style.SUCCESS("Seeded Aurum Luxe PC components catalog."))
+        self.stdout.write(self.style.SUCCESS("Seeded Neo China PC components catalog."))

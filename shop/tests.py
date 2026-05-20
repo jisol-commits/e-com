@@ -9,8 +9,8 @@ class StorefrontSmokeTests(TestCase):
         self.category = Category.objects.create(name="Graphics Cards", slug="graphics-cards")
         self.product = Product.objects.create(
             category=self.category,
-            name="Aurum RTX 4080 Ultra GPU",
-            slug="aurum-rtx-4080-ultra-gpu",
+            name="Neo RTX 4080 Dragon OC",
+            slug="neo-rtx-4080-dragon-oc",
             tagline="16GB GDDR6X graphics card built for 4K gaming.",
             description="A premium black and gold graphics card.",
             price="1199.00",
@@ -21,7 +21,7 @@ class StorefrontSmokeTests(TestCase):
     def test_home_page_loads(self):
         response = self.client.get(reverse("shop:home"))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Aurum Luxe")
+        self.assertContains(response, "Neo China")
 
     def test_collection_page_loads(self):
         response = self.client.get(reverse("shop:collection"))

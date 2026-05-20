@@ -1,4 +1,4 @@
-# Aurum Luxe
+# Neo China
 
 A modern responsive premium PC components e-commerce website built with Django, HTML5, CSS3, JavaScript, and SQLite for development.
 
