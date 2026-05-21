@@ -536,10 +536,11 @@ h1, h2, h3 {
 .chatbot {
   position: fixed;
   right: 24px;
-  bottom: 24px;
+  top: calc(76px + 16px);
+  bottom: auto;
   z-index: 9999;
   display: grid;
-  align-items: end;
+  align-items: start;
   justify-items: end;
   gap: 12px;
   max-width: 360px;
@@ -550,6 +551,12 @@ h1, h2, h3 {
 .chatbot-button {
   position: relative;
   z-index: 10000;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 120px;
+  padding: 0 14px;
+  border-radius: 999px;
 }
 
 .chatbot-button,
@@ -563,12 +570,12 @@ h1, h2, h3 {
 }
 
 .chatbot-button {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  padding: 0;
-  display: grid;
-  place-items: center;
+  min-height: 56px;
+  border-radius: 999px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   box-shadow: 0 24px 50px rgba(0, 0, 0, 0.25);
   animation: chatPulse 3.8s ease-in-out infinite;
 }
@@ -580,10 +587,18 @@ h1, h2, h3 {
   animation: chatIconFloat 2.2s ease-in-out infinite;
 }
 
+.chatbot-button-label {
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
 .chatbot-panel {
   position: absolute;
   right: 0;
-  bottom: 72px;
+  top: 72px;
+  bottom: auto;
   width: min(360px, calc(100vw - 32px));
   max-height: 520px;
   display: grid;

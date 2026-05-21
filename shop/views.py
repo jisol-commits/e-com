@@ -28,12 +28,20 @@ def _fallback_products():
             "display_image": "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&w=1200&q=80",
         },
         {
-            "name": "Neo Ryzen 9 Apex CPU",
-            "slug": "neo-ryzen-9-apex-cpu",
-            "tagline": "16-core desktop processor for gaming, streaming, and rendering.",
-            "price": 549,
-            "material": "16 Cores / 32 Threads",
-            "display_image": "https://images.unsplash.com/photo-1555617981-dac3880eac6e?auto=format&fit=crop&w=1200&q=80",
+            "name": "Neo Stealth Gamer S5",
+            "slug": "neo-stealth-gamer-s5",
+            "tagline": "Compact, performance-focused gaming PC with sleek dark styling.",
+            "price": 1699,
+            "material": "RTX 4060 Ti / Ryzen 5 / 16GB memory",
+            "display_image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+        },
+        {
+            "name": "Neo Rift Elite",
+            "slug": "neo-rift-elite",
+            "tagline": "High-end desktop for streaming, gaming, and intense multitasking.",
+            "price": 3599,
+            "material": "RTX 4080 Ti / Core i9 / 64GB memory",
+            "display_image": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=1200&q=80",
         },
     ]
 
