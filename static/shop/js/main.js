@@ -162,7 +162,7 @@ async function askBot(question) {
     if (data.reply_html) {
       chatBody.appendChild(createChatMessage(data.reply_html, "assistant", true));
     } else {
-      chatBody.appendChild(createChatMessage(data.reply || "Sorry, I couldn't find that. Try asking about cooling, shipping, or RAM.", "assistant"));
+      chatBody.appendChild(createChatMessage(data.reply || "Sorry, I couldn't find that. Try asking about cooling, shipping, GPUs, cabinets, or prebuilt PCs.", "assistant"));
     }
     scrollChatToBottom();
   } catch (error) {

@@ -32,3 +32,8 @@ class StorefrontSmokeTests(TestCase):
         response = self.client.get(self.product.get_absolute_url())
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.product.tagline)
+
+    def test_chatbot_endpoint_responds_without_api_key(self):
+        response = self.client.get(reverse("shop:chatbot_response"), {"message": "shipping"})
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("reply", response.json())

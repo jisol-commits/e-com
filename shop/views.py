@@ -1,6 +1,10 @@
+import json
+import os
+from urllib import error, request
+
 from django.db.models import Q
-from django.shortcuts import get_object_or_404, render
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render
 
 from .models import Category, Product
 
@@ -16,12 +20,12 @@ def _fallback_products():
             "display_image": "https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=1200&q=80",
         },
         {
-            "name": "Neo Fury DDR5 RGB RAM",
-            "slug": "neo-fury-ddr5-rgb-ram",
-            "tagline": "32GB low-latency DDR5 kit tuned for high-FPS gaming builds.",
-            "price": 169,
-            "material": "32GB / DDR5-6000 / CL30",
-            "display_image": "https://images.unsplash.com/photo-1562976540-1502c2145186?auto=format&fit=crop&w=1200&q=80",
+            "name": "Neo Eclipse 4070",
+            "slug": "neo-eclipse-4070",
+            "tagline": "Premium 1440p gaming PC with clean glass styling and balanced performance.",
+            "price": 1899,
+            "material": "RTX 4070 / Ryzen 7 / 32GB memory",
+            "display_image": "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&w=1200&q=80",
         },
         {
             "name": "Neo Ryzen 9 Apex CPU",
@@ -93,15 +97,68 @@ def _top_products(limit=3):
     return Product.objects.filter(stock__gt=0).order_by("-is_featured", "name")[:limit]
 
 
+def _store_context(limit=12):
+    products = Product.objects.select_related("category").filter(stock__gt=0).order_by("-is_featured", "name")[:limit]
+    return "\n".join(
+        f"- {product.name} ({product.category.name}): {product.tagline} ${product.price}"
+        for product in products
+    )
+
+
+def _ask_openai(message):
+    api_key = os.environ.get("OPENAI_API_KEY", "").strip()
+    if not api_key:
+        return None
+
+    payload = {
+        "model": os.environ.get("OPENAI_MODEL", "gpt-5"),
+        "instructions": (
+            "You are Neo China's concise e-commerce shopping assistant. "
+            "Help customers choose PC components, prebuilt PCs, cabinets, keyboards, mice, audio gear, shipping, and returns. "
+            "Never invent products or policies. If asked about products, use this current store inventory context:\n"
+            f"{_store_context()}"
+        ),
+        "input": message,
+    }
+    api_request = request.Request(
+        "https://api.openai.com/v1/responses",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
+        method="POST",
+    )
+
+    try:
+        with request.urlopen(api_request, timeout=15) as response:
+            data = json.loads(response.read().decode("utf-8"))
+    except (error.HTTPError, error.URLError, TimeoutError, json.JSONDecodeError):
+        return None
+
+    output_text = data.get("output_text")
+    if output_text:
+        return output_text.strip()
+
+    for item in data.get("output", []):
+        for content in item.get("content", []):
+            if content.get("type") == "output_text" and content.get("text"):
+                return content["text"].strip()
+    return None
+
+
 def chatbot_response(request):
     message = request.GET.get("message", "").strip()
     if not message:
         return JsonResponse(
-            {"reply": "Ask me about products, shipping, returns, or finding the best components."}
+            {"reply": "Ask me about products, shipping, returns, prebuilt PCs, cabinets, or finding the best components."}
         )
 
     text = message.lower()
     products = _find_products_for_query(message)
+    ai_reply = _ask_openai(message)
+    if ai_reply:
+        return JsonResponse({"reply": ai_reply})
 
     if "shipping" in text or "delivery" in text or "ship" in text:
         return JsonResponse(
@@ -141,28 +198,6 @@ def chatbot_response(request):
                 "reply": (
                     "Our top GPUs are designed for high-performance gaming and creative work. "
                     "Here are the best matches available now."
-                ),
-                "reply_html": _build_product_recommendations(category_products),
-            }
-        )
-
-    if any(term in text for term in ["ram", "memory", "ddr5", "ddr4"]):
-        category_products = products if products.exists() else _find_products_for_query("ram")
-        if not category_products.exists():
-            fallback_products = _top_products()
-            return JsonResponse(
-                {
-                    "reply": (
-                        "I don't have RAM products in the store right now, but here are some popular items you might like."
-                    ),
-                    "reply_html": _build_product_recommendations(fallback_products),
-                }
-            )
-        return JsonResponse(
-            {
-                "reply": (
-                    "We carry high-speed RAM kits for modern gaming rigs and workstation builds. "
-                    "These are great choices right now."
                 ),
                 "reply_html": _build_product_recommendations(category_products),
             }
@@ -262,7 +297,7 @@ def chatbot_response(request):
             return JsonResponse(
                 {
                     "reply": (
-                        "For a gaming build, I recommend a powerful GPU, a fast CPU, and plenty of RAM. "
+                        "For a gaming build, I recommend a powerful GPU, a fast CPU, a strong cabinet, and reliable cooling. "
                         "Here are some top options from the store."
                     ),
                     "reply_html": _build_product_recommendations(top_products),
@@ -312,7 +347,7 @@ def chatbot_response(request):
             {
                 "reply": (
                     "The collection page shows the full selection of products. "
-                    "Use the category filters there to find GPUs, CPUs, RAM, motherboards, and more."
+                    "Use the category filters there to find GPUs, CPUs, cabinets, prebuilt PCs, motherboards, and more."
                 )
             }
         )
@@ -355,18 +390,10 @@ def _build_product_recommendations(products):
         return ""
 
     items = "".join(
-        f'<li><a href="{product.get_absolute_url()}">{product.name}</a> — {product.tagline}</li>'
+        f'<li><a href="{product.get_absolute_url()}">{product.name}</a> - {product.tagline}</li>'
         for product in products
     )
     return (
         f"<p>Here are some store recommendations you can browse directly:</p>"
         f"<ul>{items}</ul>"
     )
-
-
-def _find_products_for_query(query, limit=3):
-    return Product.objects.filter(
-        Q(name__icontains=query)
-        | Q(tagline__icontains=query)
-        | Q(category__name__icontains=query)
-    ).distinct()[:limit]

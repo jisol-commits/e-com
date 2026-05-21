@@ -375,8 +375,8 @@ h1, h2, h3 {
 .text-link { color: var(--gold-bright); font-weight: 800; }
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
 }
 .product-card {
   position: relative;
@@ -413,7 +413,7 @@ h1, h2, h3 {
 .product-image {
   position: relative;
   display: block;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 4 / 3.4;
   background: #100d0a;
   overflow: hidden;
 }
@@ -444,7 +444,7 @@ h1, h2, h3 {
 .product-card:hover .product-badge { transform: translateY(-2px); }
 .product-image img { transition: transform 360ms ease; }
 .product-card:hover img { transform: scale(1.045); }
-.product-body { padding: 20px; }
+.product-body { padding: 14px; }
 .product-kicker {
   display: flex;
   justify-content: space-between;
@@ -453,7 +453,7 @@ h1, h2, h3 {
 }
 .product-kicker span, .product-kicker em, .spec-list dt {
   color: var(--gold);
-  font-size: 0.74rem;
+  font-size: 0.66rem;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -466,21 +466,25 @@ h1, h2, h3 {
   white-space: nowrap;
 }
 .product-body h3 {
-  margin: 10px 0 8px;
-  min-height: 58px;
-  font-size: 1.42rem;
-  line-height: 1.12;
+  margin: 8px 0 6px;
+  min-height: 44px;
+  font-size: 1.08rem;
+  line-height: 1.16;
 }
-.product-body p { min-height: 52px; color: var(--muted); }
+.product-body p {
+  min-height: 42px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
 .spec-chip {
   display: inline-flex;
   max-width: 100%;
-  margin: 4px 0 18px;
-  padding: 8px 11px;
+  margin: 2px 0 12px;
+  padding: 6px 9px;
   border: 1px solid rgba(214, 174, 84, 0.34);
   background: linear-gradient(135deg, rgba(214, 174, 84, 0.14), rgba(255, 255, 255, 0.035));
   color: var(--gold-bright);
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   font-weight: 800;
   transition: border-color 180ms ease, background 180ms ease;
 }
@@ -489,12 +493,12 @@ h1, h2, h3 {
   background: linear-gradient(135deg, rgba(214, 174, 84, 0.22), rgba(255, 255, 255, 0.055));
 }
 .product-meta { justify-content: space-between; gap: 14px; }
-.product-meta strong, .purchase-row strong { color: var(--gold-bright); font-size: 1.22rem; }
+.product-meta strong, .purchase-row strong { color: var(--gold-bright); font-size: 1.02rem; }
 .product-meta button {
   font-family: "Sora", ui-sans-serif, system-ui, sans-serif;
-  min-width: 72px;
-  min-height: 38px;
-  padding: 0 14px;
+  min-width: 64px;
+  min-height: 34px;
+  padding: 0 12px;
   color: var(--gold-bright);
   font-weight: 800;
   transition: background 180ms ease, color 180ms ease;
