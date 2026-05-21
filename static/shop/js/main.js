@@ -95,3 +95,87 @@ document.querySelectorAll(".product-card").forEach((card) => {
     card.style.transform = "";
   });
 });
+
+const chatbotContainer = document.querySelector(".chatbot");
+const chatOpen = document.querySelector("[data-chatbot-open]");
+const chatClose = document.querySelector("[data-chatbot-close]");
+const chatPanel = document.querySelector("[data-chatbot-panel]");
+const chatBody = document.querySelector("[data-chatbot-body]");
+const chatForm = document.querySelector("[data-chatbot-form]");
+const chatInput = document.querySelector("#chatbot-input");
+
+function createChatMessage(text, role, html = false) {
+  const message = document.createElement("div");
+  message.className = `chatbot-message ${role}`;
+  if (html) {
+    message.innerHTML = text;
+  } else {
+    const paragraph = document.createElement("p");
+    paragraph.textContent = text;
+    message.appendChild(paragraph);
+  }
+  return message;
+}
+
+function scrollChatToBottom() {
+  if (chatBody) {
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+}
+
+function setChatPanelOpen(open) {
+  if (!chatbotContainer || !chatOpen || !chatPanel) return;
+  chatbotContainer.classList.toggle("is-open", open);
+  chatOpen.setAttribute("aria-expanded", String(open));
+  if (open) {
+    chatPanel.removeAttribute("hidden");
+    chatInput?.focus();
+    scrollChatToBottom();
+  } else {
+    chatPanel.setAttribute("hidden", "true");
+  }
+}
+
+if (chatOpen && chatClose && chatbotContainer) {
+  chatOpen.addEventListener("click", () => {
+    const isOpen = chatbotContainer.classList.contains("is-open");
+    setChatPanelOpen(!isOpen);
+  });
+  chatClose.addEventListener("click", () => setChatPanelOpen(false));
+}
+
+async function askBot(question) {
+  if (!question || !chatBody) return;
+  chatBody.appendChild(createChatMessage(question, "customer"));
+  scrollChatToBottom();
+  chatInput.value = "";
+
+  const placeholder = createChatMessage("Thinking...", "assistant");
+  chatBody.appendChild(placeholder);
+  scrollChatToBottom();
+
+  try {
+    const encoded = encodeURIComponent(question);
+    const response = await fetch(`/chatbot/response/?message=${encoded}`);
+    const data = await response.json();
+    placeholder.remove();
+    if (data.reply_html) {
+      chatBody.appendChild(createChatMessage(data.reply_html, "assistant", true));
+    } else {
+      chatBody.appendChild(createChatMessage(data.reply || "Sorry, I couldn't find that. Try asking about cooling, shipping, or RAM.", "assistant"));
+    }
+    scrollChatToBottom();
+  } catch (error) {
+    placeholder.remove();
+    chatBody.appendChild(createChatMessage("There was a problem connecting to the chatbot. Please try again.", "assistant"));
+    scrollChatToBottom();
+  }
+}
+
+if (chatForm) {
+  chatForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const text = chatInput?.value.trim();
+    if (text) askBot(text);
+  });
+}
